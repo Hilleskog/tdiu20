@@ -6,11 +6,12 @@
 class Time{ //Stort T viktigt
 public:
   Time(int h, int m, int s);
-
+  int gethour() const;
+  int getminute() const;
+  int getsecond() const;
 private:
   int hour;
   int minute;
   int second;
-
 };
 #endif
