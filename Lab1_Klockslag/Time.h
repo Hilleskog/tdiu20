@@ -5,7 +5,9 @@
 
 class Time{ //Stort T viktigt
 public:
+  Time(): hour{0}, minute{0}, second{0};
   Time(int h, int m, int s);
+  Time
   int gethour() const;
   int getminute() const;
   int getsecond() const;
