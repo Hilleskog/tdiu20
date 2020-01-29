@@ -1,0 +1,2 @@
+//Kompilera stor fil för sig
+w++17 -std=c++17 -c test_main.cc //Genererar test_main.o
