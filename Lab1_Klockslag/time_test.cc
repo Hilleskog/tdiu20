@@ -57,8 +57,7 @@ TEST_CASE ("String constructor")
   }
 }
 
-#if 0
-
+/*
 TEST_CASE ("am or pm")
 {
   Time t{12,12,31};
@@ -66,13 +65,17 @@ TEST_CASE ("am or pm")
   Time t2{1,2,3};
   CHECK(t2.is_am());
 }
+*/
 
 TEST_CASE ("Convert to string" )
 {
-  CHECK( Time{12,12,12}.to_string()     ==    "12:12:12" );
-  CHECK( Time{12, 1, 2}.to_string()     ==    "12:01:02" );
+  CHECK( Time{12,12,12}.to_string(false)== "12:12:12" );
+  CHECK( Time{12, 1, 2}.to_string(false)== "12:01:02" );
   CHECK( Time{14,33,12}.to_string(true) == "02:33:12 pm" );
+  CHECK( Time{10,33,12}.to_string(true) == "10:33:12 am" );
 }
+
+#if 0
 
 TEST_CASE ("Conversion to string" )
 {
