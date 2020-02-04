@@ -14,7 +14,9 @@ public:
   int getminute() const;
   int getsecond() const;
   bool is_am()const;
+
   std::string to_string(bool const twelveh) const;
+  std::string bror(Time const & t) const;
 private:
   int hour;
   int minute;

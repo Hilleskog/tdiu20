@@ -10,7 +10,7 @@
 using namespace std;
 
 Time::Time(int h, int m, int s):
-  hour{h}, minute{m}, second{s}
+hour{h}, minute{m}, second{s}
 {
   if(h>23 || h<00 || m< 00|| s<00|| m> 59 || s>59 )
   {
@@ -19,7 +19,7 @@ Time::Time(int h, int m, int s):
 }
 
 Time::Time(std::string text):
-  hour{0}, minute{0}, second{0}
+hour{0}, minute{0}, second{0}
 {
   stringstream strem{text};
   char garbage;
@@ -46,7 +46,6 @@ int Time::getsecond()const
   return second;
 }
 
-
 bool Time::is_am()const
 {
   int tmp{hour};
@@ -60,82 +59,52 @@ bool Time::is_am()const
   }
 }
 
-
 string Time::to_string(bool const twelveh) const
 {
   stringstream strem;
   string result;
   int tmp{hour};
 
+  if (twelveh == true && is_am() == false)
+  {
+    tmp = tmp - 12;
+
+    if (tmp < 10){
+      strem << setfill('0') << setw(2) << fixed  << tmp  << ":" ; //Setw(2)
+    }
+  } else {
+    strem << hour << ":";
+  }
+
+  if (minute < 10){
+    strem << setfill('0') << setw(2) << fixed << minute << ":";
+  } else {
+    strem << minute << ":";
+  }
+
+  if (second < 10){
+    strem << setfill('0') << setw(2) << fixed << second;
+  } else {
+    strem << setfill('0') << setw(2) << fixed << second;
+  }
+
   if (twelveh == true)
   {
-    if (is_am() == false)
-    { //PM
-      tmp = tmp - 12;
-
-      if (tmp < 10){
-        strem << "0" << tmp << ":"; //Setw(2)
-      } else {
-        strem << tmp << ":";
-      }
-
-      if (minute < 10){
-        strem << "0" << minute << ":";
-      } else {
-        strem << minute << ":";
-      }
-
-      if (second < 10){
-        strem << fixed << setw(2) << "0" << second  << " pm";
-      } else {
-        strem << fixed << setw(2) << second << " pm";
-      }
-
-
-    }
-    else
-    {  //AM
-      if (hour < 10){
-        strem << "0" << hour << ":";
-      } else {
-        strem << hour << ":";
-      }
-
-      if (minute < 10){
-        strem << "0" << minute << ":";
-      } else {
-        strem << minute << ":";
-      }
-
-      if (second < 10){
-        strem << "0" << second << " am";
-      } else {
-        strem << second << " am";
-      }
+    if (is_am() == true)
+    {
+      strem << setfill('x') << setw(3)<< right << fixed << "am";
+    } else {
+      strem << setfill('x') << setw(3)<< right << fixed << "pm";
     }
   }
-
-  else
-  {
-    if (hour < 10){
-      strem << "0" << hour << ":";
-    } else {
-      strem << hour << ":";
-    }
-
-    if (minute < 10){
-      strem << "0" << minute << ":";
-    } else {
-      strem << minute << ":";
-    }
-
-    if (second < 10){
-      strem << "0" << second;
-    } else {
-      strem << second;
-    }
-  }
-
   strem >> result;
   return result;
+}
+
+
+string Time::bror(Time const & t) const
+{
+  string tmp;
+  tmp = t.to_string(false);
+  return tmp;
 }
