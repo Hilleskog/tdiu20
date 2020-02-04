@@ -10,13 +10,14 @@ public:
   Time(int h, int m, int s);
   Time(std::string text);
 
+  Time operator+(int const& rhs);
+
   int gethour() const;
   int getminute() const;
   int getsecond() const;
   bool is_am()const;
 
-  std::string to_string(bool const twelveh) const;
-  std::string bror(Time const & t) const;
+  std::string to_string(bool const twelveh = false) const;
 private:
   int hour;
   int minute;

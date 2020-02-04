@@ -92,19 +92,17 @@ string Time::to_string(bool const twelveh) const
   {
     if (is_am() == true)
     {
-      strem << setfill('x') << setw(3)<< right << fixed << "am";
+      strem << setfill(' ') << setw(3)<< right << fixed << "am";
     } else {
-      strem << setfill('x') << setw(3)<< right << fixed << "pm";
+      strem << setfill(' ') << setw(3)<< right << fixed << "pm";
     }
   }
-  strem >> result;
-  return result;
+  return strem.str();
 }
 
-
-string Time::bror(Time const & t) const
+Time Time::operator+(int const& rhs)
 {
-  string tmp;
-  tmp = t.to_string(false);
-  return tmp;
+  int timefucker{ second + rhs };
+  Time tmp_t{hour,minute,timefucker};
+  return tmp_t;
 }
