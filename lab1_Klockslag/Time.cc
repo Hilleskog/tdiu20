@@ -73,7 +73,11 @@ string Time::to_string(bool const twelveh) const
       strem << setfill('0') << setw(2) << fixed  << tmp  << ":" ; //Setw(2)
     }
   } else {
-    strem << hour << ":";
+    if (hour < 10){
+      strem << setfill('0') << setw(2) << fixed  << tmp  << ":" ; //Setw(2)
+    } else {
+      strem << hour << ":";
+    }
   }
 
   if (minute < 10){
@@ -102,7 +106,118 @@ string Time::to_string(bool const twelveh) const
 
 Time Time::operator+(int const& rhs)
 {
-  int timefucker{ second + rhs };
-  Time tmp_t{hour,minute,timefucker};
+  for (int i{}; i<rhs; i++)
+  {
+    second++;
+    if (second>59)
+    {
+      minute++;
+      second = 0;
+      if (minute>59){
+        hour++;
+        minute = 0;
+      }
+    }
+  }
+  Time tmp_t{hour,minute,second};
   return tmp_t;
 }
+
+Time Time::operator -(int const& rhs)
+{
+  for (int i{}; i<rhs; i++)
+  {
+    second--;
+    if (second<0)
+    {
+      second = 59;
+      minute--;
+      if (minute<0)
+      {
+        minute = 59;
+        hour--;
+      }
+    }
+  }
+  Time tmp_t{hour,minute,second};
+  return tmp_t;
+}
+
+Time Time::operator ++(int) // t++
+{
+  Time tmp {*this};
+  second++;
+  if (second>59)
+  {
+    minute++;
+    second= 0;
+    if (minute>59){
+      hour++;
+      minute = 0;
+    }
+  }
+  return tmp;
+}
+
+Time& Time::operator ++() // ++t
+{
+  second++;
+  if (second>59)
+  {
+    minute++;
+    second= 0;
+    if (minute>59){
+      hour++;
+      minute = 0;
+    }
+  }
+  return *this;
+}
+
+Time Time::operator --(int)
+{
+  Time tmp {*this};
+  second--;
+  {
+    second--;
+    if (second<0)
+    {
+      minute--;
+      second = 59;
+      if (minute<0)
+      {
+        minute = 59;
+        hour--;
+      }
+    }
+  }
+  return tmp;
+}
+
+Time& Time::operator --() //pre-increment
+{
+  --second;
+  {
+    second--;
+    if (second<0)
+    {
+      minute--;
+      second = 59;
+      if (minute<0)
+      {
+        minute = 59;
+        hour--;
+      }
+    }
+  }
+  return *this;
+}
+/*
+int i{3}
+i++; //i = 3
+i    //i = 4
+++i; //i = 5
+Time & operator ++()
+Time operator ++(int)
+
+*/

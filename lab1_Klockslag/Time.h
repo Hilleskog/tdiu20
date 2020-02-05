@@ -10,7 +10,15 @@ public:
   Time(int h, int m, int s);
   Time(std::string text);
 
-  Time operator+(int const& rhs);
+  Time operator +(int const& rhs);
+  Time operator -(int const& rhs);
+  Time operator ++(int);  // t++
+  Time& operator ++();    // ++t
+  Time operator --(int);
+  Time& operator --();
+//  Time operator >();
+//  Time operator <();
+
 
   int gethour() const;
   int getminute() const;
