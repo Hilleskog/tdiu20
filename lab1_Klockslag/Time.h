@@ -3,6 +3,8 @@
 #ifndef TIME_H
 #define TIME_H
 #include <string>
+#include <sstream>
+#include <iostream>
 
 class Time{ //Stort T viktigt
 public:
@@ -25,6 +27,7 @@ public:
   bool operator >=(Time const& rhs);
 
 
+
   int gethour() const;
   int getminute() const;
   int getsecond() const;
@@ -36,4 +39,8 @@ private:
   int minute;
   int second;
 };
+
+  std::ostream& operator <<(std::ostream & lhs, Time const& rhs);
+  std::istream& operator >>(std::istream & lhs, Time & rhs);
+
 #endif

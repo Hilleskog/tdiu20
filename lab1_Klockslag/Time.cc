@@ -222,12 +222,12 @@ bool Time::operator >(Time const& rhs)
   {
     return true;
   }
-  else if (hour == rhs.gethour() || minute == rhs.getminute() || second > rhs.getsecond()){
+  else if (hour == rhs.gethour() && minute == rhs.getminute() && second > rhs.getsecond())
+  {
     return true;
   }
-  else{
-    return false;
-  }
+
+  return false;
 }
 
 
@@ -243,9 +243,7 @@ bool Time::operator <(Time const& rhs)
   else if (hour == rhs.gethour() && minute == rhs.getminute() && second < rhs.getsecond()){
     return true;
   }
-  else{
-    return false;
-  }
+  return false;
 }
 
 
@@ -275,9 +273,10 @@ bool Time::operator !=(Time const& rhs)
 
 bool Time::operator <=(Time const& rhs)
 {
-  if ((*this == rhs) == true){
+  Time tmp {hour,minute,second};
+  if ((tmp == rhs) == true){
     return true;
-  } else if((*this <= rhs ) == true){
+  } else if((tmp < rhs ) == true){
     return true;
   }
   else{
@@ -287,15 +286,32 @@ bool Time::operator <=(Time const& rhs)
 
 bool Time::operator >=(Time const& rhs)
 {
-  if ((*this == rhs) == true){
+  Time tmp {hour,minute,second};
+  if ((tmp == rhs) == true){
     return true;
-  } else if((*this >= rhs ) == true){
+  } else if((tmp > rhs ) == true){
     return true;
   }
   else{
     return false;
   }
 }
+
+std::ostream& operator <<(std::ostream & lhs, Time const& rhs)
+{
+  lhs << rhs.to_string();
+  return lhs;
+}
+
+std::istream& operator >>(std::istream & lhs, Time & rhs)
+{
+  char trash;
+  int tmp_h, tmp_m, tmp_s;
+  lhs >> tmp_h >> trash >> tmp_m >> trash >> tmp_s;
+  rhs = Time{tmp_h, tmp_m, tmp_s};
+  return lhs;
+}
+
 
 /*
 int i{3}
