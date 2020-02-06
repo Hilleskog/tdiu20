@@ -130,6 +130,39 @@ TEST_CASE ("Decrement")
   }
 }
 
+TEST_CASE (" == ")
+{
+  CHECK ((Time{00,00,23} == Time{00,00,23}) == true);
+
+  CHECK ((Time{12,42,11} == Time{23,21,43}) == false);
+}
+
+TEST_CASE (" < ")
+{
+
+  CHECK ((Time{00,00,00} < Time{00,00,01}) == true);
+  CHECK ((Time{11,59,59} < Time{12,00,00}) == true);
+
+  CHECK ((Time{00,00,01} < Time{00,00,00}) == false);
+  CHECK ((Time{00,00,00} < Time{00,00,00}) == false);
+}
+
+TEST_CASE (" > ")
+{
+
+  CHECK ((Time{00,00,00} > Time{00,00,01}) == false);
+  CHECK ((Time{11,59,59} > Time{12,00,00}) == false);
+
+  CHECK ((Time{00,00,01} > Time{00,00,00}) == true);
+  CHECK ((Time{00,00,00} > Time{00,00,00}) == true);
+}
+
+TEST_CASE (" != ")
+{
+  CHECK ((Time{12,42,11} != Time{23,21,43}) == true);
+
+  CHECK ((Time{00,00,23} != Time{00,00,23}) == false);
+}
 
 #if 0
 

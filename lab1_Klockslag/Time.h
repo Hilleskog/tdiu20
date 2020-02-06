@@ -16,8 +16,13 @@ public:
   Time& operator ++();    // ++t
   Time operator --(int);
   Time& operator --();
-//  Time operator >();
-//  Time operator <();
+
+  bool operator >(Time const& rhs);
+  bool operator <(Time const& rhs);
+  bool operator ==(Time const& rhs);
+  bool operator !=(Time const& rhs);
+  bool operator <=(Time const& rhs);
+  bool operator >=(Time const& rhs);
 
 
   int gethour() const;

@@ -212,6 +212,91 @@ Time& Time::operator --() //pre-increment
   }
   return *this;
 }
+
+bool Time::operator >(Time const& rhs)
+{
+  if( hour > rhs.gethour())
+  {
+    return true;
+  } else if (hour == rhs.gethour() && minute > rhs.getminute())
+  {
+    return true;
+  }
+  else if (hour == rhs.gethour() || minute == rhs.getminute() || second > rhs.getsecond()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+
+bool Time::operator <(Time const& rhs)
+{
+  if( hour < rhs.gethour())
+  {
+    return true;
+  } else if (hour == rhs.gethour() && minute < rhs.getminute())
+  {
+    return true;
+  }
+  else if (hour == rhs.gethour() && minute == rhs.getminute() && second < rhs.getsecond()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+
+bool Time::operator ==(Time const& rhs)
+{
+  if (hour == rhs.gethour() &&
+  minute == rhs.getminute() &&
+  second == rhs.getsecond())
+  {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool Time::operator !=(Time const& rhs)
+{
+  if (hour != rhs.gethour() &&
+  minute != rhs.getminute() &&
+  second != rhs.getsecond())
+  {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool Time::operator <=(Time const& rhs)
+{
+  if ((*this == rhs) == true){
+    return true;
+  } else if((*this <= rhs ) == true){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+bool Time::operator >=(Time const& rhs)
+{
+  if ((*this == rhs) == true){
+    return true;
+  } else if((*this >= rhs ) == true){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 /*
 int i{3}
 i++; //i = 3
