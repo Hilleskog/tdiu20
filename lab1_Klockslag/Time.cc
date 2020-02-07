@@ -14,7 +14,7 @@ hour{h}, minute{m}, second{s}
 {
   if(h>23 || h<00 || m< 00|| s<00|| m> 59 || s>59 )
   {
-    throw std::logic_error{"git fukd"};
+    throw std::logic_error("Incorrect number");
   }
 }
 
@@ -308,7 +308,16 @@ std::istream& operator >>(std::istream & lhs, Time & rhs)
   char trash;
   int tmp_h, tmp_m, tmp_s;
   lhs >> tmp_h >> trash >> tmp_m >> trash >> tmp_s;
-  rhs = Time{tmp_h, tmp_m, tmp_s};
+
+  try
+  {
+      rhs = Time{tmp_h, tmp_m, tmp_s};
+  }
+  catch(exception & e)
+  {
+    lhs.setstate(std::ios_base::failbit);
+  }
+  //rhs = Time{tmp_h, tmp_m, tmp_s};
   return lhs;
 }
 

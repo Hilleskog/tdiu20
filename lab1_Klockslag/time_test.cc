@@ -204,10 +204,39 @@ TEST_CASE ("Output operator" )
 
 TEST_CASE("Input operator" )
 {
-  Time t{00,23,51};
+  Time t{};
   stringstream ss;
+  SECTION("in-test")
+  {
+    ss << "02:20:31";
     ss >> t;
-    CHECK(ss.str() == "00:23:51");
+    CHECK(ss.str() == "02:20:31");
+  }
+
+  SECTION("Catch test h")
+  {
+    ss << "05:20:71";
+    ss >> t;
+    CHECK(ss.fail());
+  }
+  /*
+  SECTION("Catch test m")
+  {
+    Time t{};
+    stringstream ss;
+    ss << "02:61:31";
+    ss >> t;
+    CHECK(ss.fail());
+  }
+  SECTION("Catch test s")
+  {
+    Time t{};
+    stringstream ss;
+    ss << "02:20:75";
+    ss >> t;
+    CHECK(ss.fail());
+    }
+    */
 }
 
 #if 0
