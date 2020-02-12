@@ -137,6 +137,13 @@ TEST_CASE (" == ")
   CHECK ((Time{12,42,11} == Time{23,21,43}) == false);
 }
 
+TEST_CASE (" != ")
+{
+  CHECK ((Time{12,42,11} != Time{23,21,43}) == true);
+
+  CHECK ((Time{00,00,23} != Time{00,00,23}) == false);
+}
+
 TEST_CASE (" < ")
 {
 
@@ -154,23 +161,25 @@ TEST_CASE (" > ")
   CHECK ((Time{11,59,59} > Time{12,00,00}) == false);
 
   CHECK ((Time{00,00,01} > Time{00,00,00}) == true);
-  CHECK ((Time{00,00,00} > Time{00,00,00}) == true);
+  CHECK ((Time{00,00,00} > Time{00,00,00}) == false);
 }
 
-TEST_CASE (" != ")
+TEST_CASE (" <=")
 {
-  CHECK ((Time{12,42,11} != Time{23,21,43}) == true);
+  CHECK ((Time{15,18,30} <= Time{15,18,30}) == true);
+  CHECK ((Time{15,18,00} <= Time{15,18,30}) == true);
 
-  CHECK ((Time{00,00,23} != Time{00,00,23}) == false);
+  CHECK ((Time{18,18,30} <= Time{15,18,30}) == false);
+
 }
 
-#if 0
-
-TEST_CASE ("Conversion to string" ) // WTF
+TEST_CASE (" >=")
 {
-  CHECK( string(Time{2,4,1}) == "02:04:01" );
-}
+  CHECK ((Time{15,18,30} >= Time{15,18,30}) == true);
+  CHECK ((Time{18,18,00} >= Time{15,18,30}) == true);
 
+  CHECK ((Time{10,18,30} >= Time{15,18,30}) == false);
+}
 
 TEST_CASE ("Output operator" )
 {
@@ -192,4 +201,51 @@ TEST_CASE ("Output operator" )
     CHECK(ss.str() == "23:23:23");
   }
 }
+
+TEST_CASE("Input operator" )
+{
+  Time t{};
+  stringstream ss;
+  SECTION("in-test")
+  {
+    ss << "02:20:31";
+    ss >> t;
+    CHECK(ss.str() == "02:20:31");
+  }
+
+  SECTION("Catch test h")
+  {
+    ss << "05:20:71";
+    ss >> t;
+    CHECK(ss.fail());
+  }
+  /*
+  SECTION("Catch test m")
+  {
+    Time t{};
+    stringstream ss;
+    ss << "02:61:31";
+    ss >> t;
+    CHECK(ss.fail());
+  }
+  SECTION("Catch test s")
+  {
+    Time t{};
+    stringstream ss;
+    ss << "02:20:75";
+    ss >> t;
+    CHECK(ss.fail());
+    }
+    */
+}
+
+#if 0
+
+TEST_CASE ("Conversion to string" ) // WTF
+{
+  CHECK( string(Time{2,4,1}) == "02:04:01" );
+}
+
+
+
 #endif
