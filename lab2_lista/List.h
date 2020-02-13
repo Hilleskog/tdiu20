@@ -44,13 +44,3 @@ private:
 };
 
 #endif
-
-class element
-{
-public:
-  element(int data = null);
-private:
-  int data;
-  element* next;
-  element* prev;
-};
