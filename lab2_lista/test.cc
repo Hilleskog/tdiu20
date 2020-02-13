@@ -1,4 +1,4 @@
-/C++ code to define list element
+//C++ code to define list element
 
 template <class Type>
 class ListElem {

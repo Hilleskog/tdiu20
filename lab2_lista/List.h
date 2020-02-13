@@ -15,7 +15,8 @@ class Sorted_List //class
 {
 public:
   Sorted_List(): firstptr{nullptr}, lastptr{nullptr} {}
-  Sorted_List(element* first, element* last);
+  Sorted_List(element* first, element* last):
+  firstptr{first}, lastptr{last} {}
   ~Sorted_List();
 
 
@@ -30,9 +31,10 @@ private:
     {
     public:
       element(element* next_el, element* prev_el, int number)
+    private:
+      int data;
       element* next;
       element* prev;
-      int data;
     };
 
     element* firstptr;
@@ -42,3 +44,13 @@ private:
 };
 
 #endif
+
+class element
+{
+public:
+  element(int data = null);
+private:
+  int data;
+  element* next;
+  element* prev;
+};
