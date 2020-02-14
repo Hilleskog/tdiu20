@@ -219,33 +219,16 @@ TEST_CASE("Input operator" )
     ss >> t;
     CHECK(ss.fail());
   }
-  /*
-  SECTION("Catch test m")
-  {
-    Time t{};
-    stringstream ss;
-    ss << "02:61:31";
-    ss >> t;
-    CHECK(ss.fail());
-  }
-  SECTION("Catch test s")
-  {
-    Time t{};
-    stringstream ss;
-    ss << "02:20:75";
-    ss >> t;
-    CHECK(ss.fail());
-    }
-    */
+
 }
 
-#if 0
+
 
 TEST_CASE ("Conversion to string" ) // WTF
 {
-  CHECK( string(Time{2,4,1}) == "02:04:01" );
+  CHECK( string(Time{2,4,1}.to_string()) == "02:04:01" );
 }
-
+#if 0
 
 
 #endif

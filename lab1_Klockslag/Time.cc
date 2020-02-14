@@ -27,7 +27,7 @@ hour{0}, minute{0}, second{0}
 
   if(hour>23 || hour<00 || minute< 00 || minute> 59 || second<00 || second>59 )
   {
-    throw std::logic_error{"git fukd"};
+    throw std::logic_error{"Not ok"};
   }
 }
 
