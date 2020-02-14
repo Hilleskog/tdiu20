@@ -27,7 +27,7 @@ hour{0}, minute{0}, second{0}
 
   if(hour>23 || hour<00 || minute< 00 || minute> 59 || second<00 || second>59 )
   {
-    throw std::logic_error{"git fukd"};
+    throw std::logic_error{"Not ok"};
   }
 }
 
@@ -104,43 +104,44 @@ string Time::to_string(bool const twelveh) const
   return strem.str();
 }
 
-Time Time::operator+(int const& rhs)
+Time Time::operator +(int const& rhs)
 {
+  Time tmp{*this};
   for (int i{}; i<rhs; i++)
   {
-    second++;
-    if (second>59)
+    tmp.second++;
+    if (tmp.second>59)
     {
-      minute++;
-      second = 0;
-      if (minute>59){
-        hour++;
-        minute = 0;
+      tmp.minute++;
+      tmp.second = 0;
+      if (tmp.minute>59){
+        tmp.hour++;
+        tmp.minute = 0;
       }
     }
   }
-  Time tmp_t{hour,minute,second};
-  return tmp_t;
+  return tmp;
 }
 
 Time Time::operator -(int const& rhs)
 {
+  Time tmp{*this};
+
   for (int i{}; i<rhs; i++)
   {
-    second--;
-    if (second<0)
+    tmp.second--;
+    if (tmp.second<0)
     {
-      second = 59;
-      minute--;
-      if (minute<0)
+      tmp.second = 59;
+      tmp.minute--;
+      if (tmp.minute<0)
       {
-        minute = 59;
-        hour--;
+        tmp.minute = 59;
+        tmp.hour--;
       }
     }
   }
-  Time tmp_t{hour,minute,second};
-  return tmp_t;
+  return tmp;
 }
 
 Time Time::operator ++(int) // t++
@@ -321,6 +322,10 @@ std::istream& operator >>(std::istream & lhs, Time & rhs)
   return lhs;
 }
 
+Time::operator string()
+{
+  return to_string();
+}
 
 /*
 int i{3}

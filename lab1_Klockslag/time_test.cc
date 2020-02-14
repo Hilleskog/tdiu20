@@ -79,23 +79,23 @@ TEST_CASE ("Convert to string" )
 TEST_CASE ("Add n seconds")
 {
   Time t {1, 2, 3};
-  t = t + 30;
-  CHECK(t.getsecond()==33);
+  CHECK((t + 30).getsecond()==33);
+  CHECK(t.getsecond()==3);
 
   Time t2 {20,59,59};
-  t2 + 1;
-  CHECK (t2.to_string() == "21:00:00");
+  CHECK ((t2 + 1).to_string() == "21:00:00");
+  CHECK (t2.to_string() == "20:59:59");
 }
 
 TEST_CASE ("Subtract n seconds")
 {
   Time t {0, 0, 40};
-  t = t - 30;
-  CHECK(t.getsecond()==10);
+  CHECK((t - 30).getsecond()==10);
+  CHECK(t.getsecond()==40);
 
   Time t2 {21,00,00};
-  t2 - 1;
-  CHECK (t2.to_string() == "20:59:59");
+  CHECK ((t2 - 1).to_string() == "20:59:59");
+  CHECK (t2.to_string() == "21:00:00");
 }
 
 TEST_CASE ("Increment")
@@ -219,33 +219,15 @@ TEST_CASE("Input operator" )
     ss >> t;
     CHECK(ss.fail());
   }
-  /*
-  SECTION("Catch test m")
-  {
-    Time t{};
-    stringstream ss;
-    ss << "02:61:31";
-    ss >> t;
-    CHECK(ss.fail());
-  }
-  SECTION("Catch test s")
-  {
-    Time t{};
-    stringstream ss;
-    ss << "02:20:75";
-    ss >> t;
-    CHECK(ss.fail());
-    }
-    */
+
 }
 
-#if 0
 
 TEST_CASE ("Conversion to string" ) // WTF
 {
   CHECK( string(Time{2,4,1}) == "02:04:01" );
 }
-
+#if 0
 
 
 #endif
