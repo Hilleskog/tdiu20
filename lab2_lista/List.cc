@@ -1,25 +1,33 @@
 #include "List.h"
 using namespace std;
 
+Sorted_List::Sorted_List():
+firstptr{nullptr}, lastptr{nullptr} {}
 
-Sorted_List::Sorted_List:
-firstptr{nullptr}, lastptr{nullptr}
-{}
-  Sorted_List(element* first, element* last):
-  firstptr{first}, lastptr{last} {}
-/*
-Sorted_List::Sorted_List(int d): data(d), next(NULL), prev(NULL)
+Sorted_List::~Sorted_List()
 {}
 
-complex::complex(int r, int i):
-real{r}, imag{i}
+  bool Sorted_List::is_empty()
+  {
+    if (firstptr == nullptr && lastptr == nullptr) //inte nödvändigt att kolla lastptr också men idgaf
+    {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-class complex {
-public:
-  complex (int r, int i);
-}stptr{nullptr}, lastp
+  void insert (const int& data){
+    Element* newOne = new Element(data);
 
-Sorted_List::Sorted_List(first{nullptr}, last{nullptr}):
-firstptr(first), lastptr{last}
-
- */
+    if (first == nullptr)
+    {
+      first = newOne;
+    }
+    else
+    {
+      newOne->next = first;
+      first = newOne;
+    }
+    size++;
+  }

@@ -1,6 +1,5 @@
 #include "catch.hpp"
 #include "List.h"
-
 using namespace std;
 
 
@@ -14,10 +13,8 @@ using namespace std;
 
 TEST_CASE ("Bekare constructor")
 {
-  Sorted_List empty{nullptr, nullptr};
-
-  CHECK(empty.firstptr == nullptr);
-  CHECK(empty.lastptr == nullptr);
+  Sorted_List l;
+  CHECK(l.is_empty());
 
   //Sorted_List initialized_list{2,5,7};
 }

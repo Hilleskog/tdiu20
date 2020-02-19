@@ -13,47 +13,39 @@ börja medlemsvariabler med typ _ eller m_
 
 class Sorted_List //class
 {
-  class element;
+  class Element;
 public:
   Sorted_List();
-
-  Sorted_List(element* first, element* last);
+  Sorted_List(Element* first, Element* last);
   ~Sorted_List();
 
+  bool is_empty();
+  void insert(int);
+/*
   //initialized_list
   //kopiering
   void print();
-  void insert(int);
   void remove(int);
   int index(int index);
   int getsize();
-
+*/
 private:
-  class element
+
+  class Element
     {
     public:
-      element(element* next_el, element* prev_el, int number);
-    private:
+      Element(Element* next, Element* prev, int new_data);
+      ~Element();
+
+      Element* next{nullptr};
+      Element* prev{nullptr};
       int data;
-      element* next;
-      element* prev;
     };
 
-    element* firstptr;
-    element* lastptr;
+    Element* firstptr{nullptr};
+    Element* lastptr{nullptr};
     int size;
 
 };
 
 #endif
-/*
-class element
-{
-public:
-  element(int data = null);
-private:
-  int data;
-  element* next;
-  element* prev;
-};
-*/
