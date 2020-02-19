@@ -26,14 +26,12 @@ public:
   bool operator <=(Time const& rhs);
   bool operator >=(Time const& rhs);
 
-
-
   int gethour() const;
   int getminute() const;
   int getsecond() const;
   bool is_am()const;
-
   std::string to_string(bool const twelveh = false) const;
+  operator std::string();
 private:
   int hour;
   int minute;

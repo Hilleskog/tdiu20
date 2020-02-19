@@ -79,23 +79,23 @@ TEST_CASE ("Convert to string" )
 TEST_CASE ("Add n seconds")
 {
   Time t {1, 2, 3};
-  t = t + 30;
-  CHECK(t.getsecond()==33);
+  CHECK((t + 30).getsecond()==33);
+  CHECK(t.getsecond()==3);
 
   Time t2 {20,59,59};
-  t2 + 1;
-  CHECK (t2.to_string() == "21:00:00");
+  CHECK ((t2 + 1).to_string() == "21:00:00");
+  CHECK (t2.to_string() == "20:59:59");
 }
 
 TEST_CASE ("Subtract n seconds")
 {
   Time t {0, 0, 40};
-  t = t - 30;
-  CHECK(t.getsecond()==10);
+  CHECK((t - 30).getsecond()==10);
+  CHECK(t.getsecond()==40);
 
   Time t2 {21,00,00};
-  t2 - 1;
-  CHECK (t2.to_string() == "20:59:59");
+  CHECK ((t2 - 1).to_string() == "20:59:59");
+  CHECK (t2.to_string() == "21:00:00");
 }
 
 TEST_CASE ("Increment")
@@ -222,7 +222,10 @@ TEST_CASE("Input operator" )
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b2595875dcfe1762ca7d04b7f4de5ed394719d41
 
 TEST_CASE ("Conversion to string" ) // WTF
 {
