@@ -46,8 +46,6 @@ private:
 };
 
 #endif
-<<<<<<< HEAD
-=======
 /*
 class element
 {
@@ -59,4 +57,3 @@ private:
   element* prev;
 };
 */
->>>>>>> 6ba19f133001381d649b8d5fac2e6e13ebc5c6c1

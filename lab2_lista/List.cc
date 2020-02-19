@@ -2,9 +2,6 @@
 using namespace std;
 
 
-<<<<<<< HEAD
-/*
-=======
 Sorted_List::Sorted_List:
 firstptr{nullptr}, lastptr{nullptr}
 {}
@@ -14,7 +11,6 @@ firstptr{nullptr}, lastptr{nullptr}
 Sorted_List::Sorted_List(int d): data(d), next(NULL), prev(NULL)
 {}
 
->>>>>>> 6ba19f133001381d649b8d5fac2e6e13ebc5c6c1
 complex::complex(int r, int i):
 real{r}, imag{i}
 
