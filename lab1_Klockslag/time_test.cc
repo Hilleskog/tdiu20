@@ -222,10 +222,7 @@ TEST_CASE("Input operator" )
 
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b2595875dcfe1762ca7d04b7f4de5ed394719d41
 
 TEST_CASE ("Conversion to string" ) // WTF
 {
