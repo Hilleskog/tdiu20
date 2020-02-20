@@ -20,31 +20,31 @@ public:
   ~Sorted_List();
 
   bool is_empty();
-  void insert(int);
-/*
+  void insert (int const& data);
+  /*
   //initialized_list
   //kopiering
   void print();
   void remove(int);
   int index(int index);
   int getsize();
-*/
+  */
 private:
 
   class Element
-    {
-    public:
-      Element(Element* next, Element* prev, int new_data);
-      ~Element();
+  {
+  public:
+    Element(Element* next, Element* prev, int new_data);
+    ~Element();
 
-      Element* next{nullptr};
-      Element* prev{nullptr};
-      int data;
-    };
+    Element* next{nullptr};
+    Element* prev{nullptr};
+    int data;
+  };
 
-    Element* firstptr{nullptr};
-    Element* lastptr{nullptr};
-    int size;
+  Element* firstptr{nullptr};
+  Element* lastptr{nullptr};
+  int size;
 
 };
 

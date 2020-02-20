@@ -17,17 +17,34 @@ Sorted_List::~Sorted_List()
     }
   }
 
-  void insert (const int& data){
-    Element* newOne = new Element(data);
+  void Sorted_List::insert (int const& insert_data)
+  {
 
-    if (first == nullptr)
+    Sorted_List::Element* tmp = firstptr;
+
+    if (tmp->data > insert_data)
     {
-      first = newOne;
+
+      firstptr = new Element {tmp, nullptr, insert_data};
+      tmp->prev = firstptr;
+
+    } else {
+
+      while (tmp->next->data < insert_data && tmp->next != lastptr)
+      {
+        tmp = tmp->next;
+      }
+
+      Sorted_List::Element* tmp1 = tmp->next;
+      tmp->next = new Element {tmp1, tmp, insert_data};
+      tmp1->prev = tmp->next;
+
     }
-    else
-    {
-      newOne->next = first;
-      first = newOne;
-    }
-    size++;
   }
+
+  //initialized_list som använder sig av insert
+  //initialized_list element
+
+//if data < nästa_element insert()
+//if prev = nullptr{ first= new_el}
+//if next = nullptr { last = new_el || om next.data = null }
