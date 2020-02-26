@@ -10,17 +10,25 @@ börja medlemsvariabler med typ _ eller m_
 */
 #ifndef LIST_H
 #define LIST_H
+#include "List.h"
+#include <initializer_list>
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
 
 class Sorted_List //class
 {
-  class Element;
+  //class Element;
 public:
   Sorted_List();
-  Sorted_List(Element* first, Element* last);
+  //Sorted_List(Element* first, Element* last);
   ~Sorted_List();
+  Sorted_List(std::initializer_list<int> const &list);
 
   bool is_empty();
-  void insert (int const& data);
+  void insert (int const& insert_data);
+  std::ostream& operator << (std::ostream & os, Sorted_List const& rhs);
   /*
   //initialized_list
   //kopiering
@@ -37,8 +45,8 @@ private:
     Element(Element* next, Element* prev, int new_data);
     ~Element();
 
-    Element* next{nullptr};
-    Element* prev{nullptr};
+    Element* nextptr{nullptr};
+    Element* prevptr{nullptr};
     int data;
   };
 

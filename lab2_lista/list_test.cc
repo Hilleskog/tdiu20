@@ -1,5 +1,9 @@
 #include "catch.hpp"
 #include "List.h"
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 
@@ -17,4 +21,12 @@ TEST_CASE ("Bekare constructor")
   CHECK(l.is_empty());
 
   //Sorted_List initialized_list{2,5,7};
+}
+TEST_CASE ("INSERTFITTA")
+{
+  stringstream ss{};
+  Sorted_List l{};
+  l.insert(5);
+  ss << l;
+  CHECK(ss.str() == "5");
 }
