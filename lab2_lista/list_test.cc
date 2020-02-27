@@ -22,6 +22,7 @@ TEST_CASE ("Bekare constructor")
 
   //Sorted_List initialized_list{2,5,7};
 }
+/*
 TEST_CASE ("INSERT")
 {
   stringstream ss{};
@@ -30,3 +31,4 @@ TEST_CASE ("INSERT")
   ss << l;
   CHECK(ss.str() == "5");
 }
+*/

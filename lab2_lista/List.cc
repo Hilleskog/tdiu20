@@ -75,7 +75,7 @@ std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
       }
     }
   }
-  return os
+  return os;
 }
 /*
 

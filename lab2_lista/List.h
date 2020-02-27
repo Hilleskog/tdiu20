@@ -28,7 +28,6 @@ public:
 
   bool is_empty();
   void insert (int const& insert_data);
-  std::ostream& operator << (std::ostream & os, Sorted_List const& rhs);
   /*
   //initialized_list
   //kopiering
@@ -55,5 +54,8 @@ private:
   int size;
 
 };
+
+std::ostream & operator << (std::ostream & os, Sorted_List const& rhs);
+
 
 #endif
