@@ -22,7 +22,7 @@ TEST_CASE ("Bekare constructor")
 
   //Sorted_List initialized_list{2,5,7};
 }
-TEST_CASE ("INSERTFITTA")
+TEST_CASE ("INSERT")
 {
   stringstream ss{};
   Sorted_List l{};
