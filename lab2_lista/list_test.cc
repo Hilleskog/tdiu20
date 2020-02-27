@@ -22,6 +22,41 @@ TEST_CASE ("Bekare constructor")
 
   //Sorted_List initialized_list{2,5,7};
 }
+
+TEST_CASE ("l.get_size")
+{
+  Sorted_List l;
+  l.insert(666);
+  CHECK(l.get_size() == 1);
+
+  l.insert(1337);
+  l.insert(13);
+  l.insert(133);
+  l.insert(1);
+  CHECK(l.get_size() == 5);
+}
+
+TEST_CASE ("l.at(i)")
+{
+  Sorted_List l;
+  l.insert(6);
+  CHECK(l.at(1) == 6);
+}
+TEST_CASE ("Is sorted?")
+{
+  Sorted_List l;
+
+  //l.insert(666);
+  //l.insert(1337);
+  l.insert(13);
+  l.insert(133);
+  l.insert(1);
+  CHECK(l.at(1) == 1);
+  CHECK(l.at(2) == 13);
+  CHECK(l.at(3) == 133);
+  //CHECK(l.at(4) == 666);
+  //CHECK(l.at(5) == 1337);
+}
 /*
 TEST_CASE ("INSERT")
 {

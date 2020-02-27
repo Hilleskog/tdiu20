@@ -26,9 +26,14 @@ public:
   ~Sorted_List();
   Sorted_List(std::initializer_list<int> const &list);
 
-  bool is_empty();
+  bool is_empty() const;
   void insert (int const& insert_data);
+  int get_size()const;
+  int at(int i) const;
+  void print_list()const;
+
   /*
+  //at funktons
   //initialized_list
   //kopiering
   void print();
@@ -51,11 +56,11 @@ private:
 
   Element* firstptr{nullptr};
   Element* lastptr{nullptr};
-  int size;
+  int list_size{};
 
 };
 
-std::ostream & operator << (std::ostream & os, Sorted_List const& rhs);
+std::ostream& operator << (std::ostream & os, Sorted_List const& rhs);
 
 
 #endif

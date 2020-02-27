@@ -3,9 +3,11 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+
 using namespace std;
 
-Sorted_List::Sorted_List():
+
+Sorted_List::Sorted_List(): //element* first, element* last
 firstptr{nullptr}, lastptr{nullptr}
 {}
 
@@ -26,7 +28,7 @@ nextptr{next}, prevptr{prev}, data{new_data}
 //next{nullptr}, prev{nullptr}, new_data{0}
 {}
 
-bool Sorted_List::is_empty()
+bool Sorted_List::is_empty() const
 {
   if (firstptr == nullptr && lastptr == nullptr) //inte nödvändigt att kolla lastptr också men idgaf
   {
@@ -36,7 +38,20 @@ bool Sorted_List::is_empty()
   }
 }
 
+void Sorted_List::print_list()const
+{
+
+  for (int i{1}; i < list_size; i++)
+  {
+    cout<< at(i) << "  ";
+  }
+  cout << endl;
+}
+
 void Sorted_List::insert (int const& insert_data)
+{
+
+if (is_empty() == false)
 {
   Element* tmp = firstptr;
 
@@ -45,31 +60,59 @@ void Sorted_List::insert (int const& insert_data)
 
    firstptr = new Element {tmp, nullptr, insert_data};
     tmp->prevptr = firstptr;
-
+    cout << "oopsie daisy" << endl;
   } else {
-
-    while (tmp->nextptr->data < insert_data && tmp->nextptr != lastptr)
+    cout << "oopsie poopsie" << endl;
+    while (tmp->data < insert_data && tmp->nextptr != nullptr)
     {
+      cout << "1" << endl;
       tmp = tmp->nextptr;
     }
+      cout << "2" << endl;
+      if (tmp->nextptr == nullptr)
+      {
+        tmp->nextptr = new Element {nullptr, tmp, insert_data};
+      } else {
+        Element* tmp1 = tmp->nextptr;
+        tmp->nextptr = new Element {tmp1, tmp, insert_data};
+        tmp1->prevptr = tmp->nextptr;
+      }
 
-    Element* tmp1 = tmp->nextptr;
-    tmp->nextptr = new Element {tmp1, tmp, insert_data};
-    tmp1->prevptr = tmp->nextptr;
-
+      cout << "3" << endl;
   }
+} else {
+  firstptr = new Element {nullptr, nullptr, insert_data};
+  lastptr = firstptr;
+  cout << "xX_69_ERIKS PRO FELSÖKNING_69_Xx"<< endl;
+}
+list_size++;
 }
 
+int Sorted_List::get_size()const
+{
+  return list_size;
+}
+
+int Sorted_List::at(int position)const
+{
+  Element* tmp = firstptr;
+  for (int i = 0; i < position; i++)
+  {
+    tmp = tmp->nextptr;
+  }
+  return tmp->data;
+}
+/*
 std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
 {
-  if(rhs.firstptr != nullptr && rhs.lastptr !=nullptr)
+  if(rhs.is_empty() == false)
   {
-    Sorted_List::Element* tmp {rhs.firstptr};
-    while (tmp->nextptr != rhs.lastptr)
+    Element* tmp = rhs->firstptr;
+    while (tmp->nextptr != rhs->lastptr)
     {
       os << tmp->nextptr->value;
       tmp = tmp->nextptr;
-      if(tmp->nextptr != rhs.lastptr)
+      if(tmp->nextptr != rhs->lastptr)
       {
         os << " ";
       }
@@ -77,13 +120,9 @@ std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
   }
   return os;
 }
-/*
-
-/home/eripe625/tdiu20/lab2_lista/List.cc:40: undefined reference
- to `Sorted_List::Element::Element(Sorted_List::Element*,
-   Sorted_List::Element*, int)'
-
 */
+//error: expected initializer before ‘using’ using namespace std;
+
 //initialized_list som använder sig av insert
 //initialized_list element
 
