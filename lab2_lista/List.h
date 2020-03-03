@@ -29,12 +29,10 @@ public:
   bool is_empty() const;
   void insert (int const& insert_data);
   int get_size()const;
-  int at(int i) const;
-  void print_list()const;
+  int at(int const& i) const;
+  void remove(int const& pos);
 
   /*
-  //at funktons
-  //initialized_list
   //kopiering
   void print();
   void remove(int);
@@ -47,7 +45,7 @@ private:
   {
   public:
     Element(Element* next, Element* prev, int new_data);
-    ~Element();
+    //~Element();
 
     Element* nextptr{nullptr};
     Element* prevptr{nullptr};

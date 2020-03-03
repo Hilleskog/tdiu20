@@ -12,7 +12,21 @@ firstptr{nullptr}, lastptr{nullptr}
 {}
 
 Sorted_List::~Sorted_List()
-{}
+{
+
+  if (is_empty() == false)
+  {
+    Element* tmp = firstptr;
+    while(tmp != lastptr){
+      tmp = tmp->nextptr;
+      delete tmp->prevptr;
+    }
+    delete tmp;
+    firstptr = nullptr;
+    lastptr = nullptr;
+    list_size = 0;
+  }
+}
 
 Sorted_List::Sorted_List(std::initializer_list<int> const &list):
 Sorted_List()
@@ -36,16 +50,6 @@ nextptr{next}, prevptr{prev}, data{new_data}
     } else {
       return false;
     }
-  }
-
-  void Sorted_List::print_list()const
-  {
-
-    for (int i{1}; i < list_size; i++)
-    {
-      cout<< at(i) << "  ";
-    }
-    cout << endl;
   }
 
   void Sorted_List::insert (int const& insert_data)
@@ -75,11 +79,11 @@ nextptr{next}, prevptr{prev}, data{new_data}
 
         } else {
           tmp->nextptr = new Element {nullptr, tmp, insert_data};
+          lastptr = tmp->nextptr;
         }
       }
     }
     list_size++;
-
   }
 
   int Sorted_List::get_size()const
@@ -87,15 +91,66 @@ nextptr{next}, prevptr{prev}, data{new_data}
     return list_size;
   }
 
-  int Sorted_List::at(int position)const
+  int Sorted_List::at(int const& position )const
   {
+    if(position < get_size())
+    {
     Element* tmp = firstptr;
     for (int i = 0; i < position; i++)
     {
       tmp = tmp->nextptr;
     }
     return tmp->data;
+  }else{
+    throw std::logic_error("Större än listan");
+
   }
+  }
+
+  void Sorted_List::remove(int const& pos)
+  {
+    Element* tmp = firstptr;
+    /*
+    for (int i = pos; i > 0; i--){
+      tmp = tmp->nextptr;
+    }
+    */
+    if (tmp->prevptr == nullptr){
+      cout << "tmp->prevptr == nullptr" << endl;
+      firstptr = tmp->nextptr;
+      firstptr->prevptr = nullptr;
+      //delete tmp;
+    } else if (tmp->nextptr == nullptr){
+      cout << "tmp->nextptr == nullptr" << endl;
+      lastptr = tmp->prevptr;
+      lastptr->nextptr = nullptr;
+      delete tmp;
+    } else {
+      cout << "else" << endl;
+      tmp->prevptr->nextptr = tmp->nextptr;
+      delete tmp;
+    }
+  //  cout << get_size() <<endl;
+    list_size--;
+  //cout << get_size() <<endl;
+  }
+
+ostream& operator << (ostream & os, Sorted_List const& rhs)
+{
+  cout << rhs.get_size() << endl;
+  for (int i {0}; i < rhs.get_size(); i++)
+  {
+    os << rhs.at(i);
+
+    if (i+1 != rhs.get_size()){
+    os << " ";
+    }
+  }
+  return os;
+}
+
+
+
 /*
 std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
 {
@@ -114,56 +169,4 @@ std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
   }
   return os;
 }
-
-if (is_empty() == false)
-{
-  Element* tmp = firstptr;
-
-  if (tmp->data > insert_data)
-  {
-    firstptr = new Element {tmp, nullptr, insert_data};
-    tmp->prevptr = firstptr;
-    cout << "in-data mindre än nästa data i listan   " << insert_data << " <  "<< tmp->data << endl;
-  } else {
-    cout << "In-data större än nästa data i listan   " << insert_data <<endl;
-    while (tmp->data < insert_data && tmp->nextptr != nullptr)
-    {
-      cout << "Vi går ett steg   " << insert_data << "   " << tmp->data << endl;
-      if (tmp->nexptr == nullptr)
-      {
-
-      }
-      tmp = tmp->nextptr;
-    }
-      cout << "Dags för insert   " << insert_data <<"   " << tmp->data << endl;
-      if (tmp->nextptr == nullptr)
-      {
-        cout << "tmp->nextptr == nullptr  " << insert_data << "   " << tmp->data << endl;
-        tmp->nextptr = new Element {nullptr, tmp, insert_data};
-      } else {
-        cout << "tmp->nextptr != nullptr   " << insert_data << "   " << tmp->data << endl;
-        Element* tmp1 = tmp->nextptr;
-        tmp->nextptr = new Element {tmp1, tmp, insert_data};
-        tmp1->prevptr = tmp->nextptr;
-      }
-  }
-} else {
-  firstptr = new Element {nullptr, nullptr, insert_data};
-  lastptr = firstptr;
-  cout << "Listan är tom. "<< insert_data << " nullptr" << endl;
-}
-list_size++;
-
 */
-
-
-
-
-//error: expected initializer before ‘using’ using namespace std;
-
-//initialized_list som använder sig av insert
-//initialized_list element
-
-//if data < nästa_element insert()
-//if prev = nullptr{ first= new_el}
-//if next = nullptr { last = new_el || om next.data = null }
