@@ -28,80 +28,74 @@ nextptr{next}, prevptr{prev}, data{new_data}
 //next{nullptr}, prev{nullptr}, new_data{0}
 {}
 
-bool Sorted_List::is_empty() const
-{
-  if (firstptr == nullptr && lastptr == nullptr) //inte nödvändigt att kolla lastptr också men idgaf
+  bool Sorted_List::is_empty() const
   {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void Sorted_List::print_list()const
-{
-
-  for (int i{1}; i < list_size; i++)
-  {
-    cout<< at(i) << "  ";
-  }
-  cout << endl;
-}
-
-void Sorted_List::insert (int const& insert_data)
-{
-
-if (is_empty() == false)
-{
-  Element* tmp = firstptr;
-
-  if (tmp->data > insert_data)
-  {
-
-   firstptr = new Element {tmp, nullptr, insert_data};
-    tmp->prevptr = firstptr;
-    cout << "oopsie daisy" << endl;
-  } else {
-    cout << "oopsie poopsie" << endl;
-    while (tmp->data < insert_data && tmp->nextptr != nullptr)
+    if (firstptr == nullptr && lastptr == nullptr) //inte nödvändigt att kolla lastptr också men idgaf
     {
-      cout << "1" << endl;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void Sorted_List::print_list()const
+  {
+
+    for (int i{1}; i < list_size; i++)
+    {
+      cout<< at(i) << "  ";
+    }
+    cout << endl;
+  }
+
+  void Sorted_List::insert (int const& insert_data)
+  {
+    if (is_empty() == true)
+    {
+      firstptr = new Element {nullptr, nullptr, insert_data};
+      lastptr = firstptr;
+    } else {
+      Element* tmp = firstptr;
+      if (insert_data < tmp->data)
+      {
+        firstptr = new Element {tmp, nullptr, insert_data};
+        tmp->prevptr = firstptr;
+      } else {
+        while (insert_data > tmp->data && tmp->nextptr != nullptr)
+        {
+          tmp = tmp->nextptr;
+        }
+        if (tmp->data >= insert_data)
+        {
+          Element* tmp1 = tmp;
+          tmp = tmp->prevptr;
+
+          tmp->nextptr = new Element {tmp1, tmp, insert_data};
+          tmp1->prevptr = tmp->nextptr;
+
+        } else {
+          tmp->nextptr = new Element {nullptr, tmp, insert_data};
+        }
+      }
+    }
+    list_size++;
+
+  }
+
+  int Sorted_List::get_size()const
+  {
+    return list_size;
+  }
+
+  int Sorted_List::at(int position)const
+  {
+    Element* tmp = firstptr;
+    for (int i = 0; i < position; i++)
+    {
       tmp = tmp->nextptr;
     }
-      cout << "2" << endl;
-      if (tmp->nextptr == nullptr)
-      {
-        tmp->nextptr = new Element {nullptr, tmp, insert_data};
-      } else {
-        Element* tmp1 = tmp->nextptr;
-        tmp->nextptr = new Element {tmp1, tmp, insert_data};
-        tmp1->prevptr = tmp->nextptr;
-      }
-
-      cout << "3" << endl;
+    return tmp->data;
   }
-} else {
-  firstptr = new Element {nullptr, nullptr, insert_data};
-  lastptr = firstptr;
-  cout << "xX_69_ERIKS PRO FELSÖKNING_69_Xx"<< endl;
-}
-list_size++;
-}
-
-int Sorted_List::get_size()const
-{
-  return list_size;
-}
-
-int Sorted_List::at(int position)const
-{
-  Element* tmp = firstptr;
-  for (int i = 0; i < position; i++)
-  {
-    tmp = tmp->nextptr;
-  }
-  return tmp->data;
-}
 /*
 std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
 {
@@ -120,7 +114,51 @@ std::ostream& operator << (std::ostream & os, Sorted_List const& rhs)
   }
   return os;
 }
+
+if (is_empty() == false)
+{
+  Element* tmp = firstptr;
+
+  if (tmp->data > insert_data)
+  {
+    firstptr = new Element {tmp, nullptr, insert_data};
+    tmp->prevptr = firstptr;
+    cout << "in-data mindre än nästa data i listan   " << insert_data << " <  "<< tmp->data << endl;
+  } else {
+    cout << "In-data större än nästa data i listan   " << insert_data <<endl;
+    while (tmp->data < insert_data && tmp->nextptr != nullptr)
+    {
+      cout << "Vi går ett steg   " << insert_data << "   " << tmp->data << endl;
+      if (tmp->nexptr == nullptr)
+      {
+
+      }
+      tmp = tmp->nextptr;
+    }
+      cout << "Dags för insert   " << insert_data <<"   " << tmp->data << endl;
+      if (tmp->nextptr == nullptr)
+      {
+        cout << "tmp->nextptr == nullptr  " << insert_data << "   " << tmp->data << endl;
+        tmp->nextptr = new Element {nullptr, tmp, insert_data};
+      } else {
+        cout << "tmp->nextptr != nullptr   " << insert_data << "   " << tmp->data << endl;
+        Element* tmp1 = tmp->nextptr;
+        tmp->nextptr = new Element {tmp1, tmp, insert_data};
+        tmp1->prevptr = tmp->nextptr;
+      }
+  }
+} else {
+  firstptr = new Element {nullptr, nullptr, insert_data};
+  lastptr = firstptr;
+  cout << "Listan är tom. "<< insert_data << " nullptr" << endl;
+}
+list_size++;
+
 */
+
+
+
+
 //error: expected initializer before ‘using’ using namespace std;
 
 //initialized_list som använder sig av insert

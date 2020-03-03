@@ -14,13 +14,22 @@ using namespace std;
 //  3. Lägg till (minsta möjliga) implementation
 //  4. Testa alla testfall
 //  5. Refaktorera (skriv om) så att allt ser bra ut
-
-TEST_CASE ("Bekare constructor")
+/*
+TEST_CASE ("b E k A r E constructor")
 {
+  SECTION ("Empty")
+  {
   Sorted_List l;
   CHECK(l.is_empty());
+  }
 
-  //Sorted_List initialized_list{2,5,7};
+  SECTION ("initialized_list")
+  {
+  Sorted_List initialized_list{2,5,7};
+  CHECK (initialized_list.at(0) == 2);
+  CHECK (initialized_list.at(1) == 5);
+  CHECK (initialized_list.at(2) == 7);
+  }
 }
 
 TEST_CASE ("l.get_size")
@@ -40,22 +49,47 @@ TEST_CASE ("l.at(i)")
 {
   Sorted_List l;
   l.insert(6);
-  CHECK(l.at(1) == 6);
+  CHECK(l.at(0) == 6);
 }
+*/
 TEST_CASE ("Is sorted?")
 {
-  Sorted_List l;
+  SECTION ("Inser flera ggr")
+  {
+  Sorted_List l{};
 
   //l.insert(666);
   //l.insert(1337);
-  l.insert(13);
-  l.insert(133);
+  //l.insert(13);
+  //l.insert(133);
+  //l.insert(1);
   l.insert(1);
-  CHECK(l.at(1) == 1);
-  CHECK(l.at(2) == 13);
-  CHECK(l.at(3) == 133);
-  //CHECK(l.at(4) == 666);
-  //CHECK(l.at(5) == 1337);
+  CHECK(l.at(0) == 1);
+
+  l.insert(3);
+  CHECK(l.at(0) == 1);
+  CHECK(l.at(1) == 3);
+
+  l.insert(2);
+  CHECK(l.at(0) == 1);
+  CHECK(l.at(1) == 2);
+  CHECK(l.at(2) == 3);
+
+  l.insert(7);
+  CHECK(l.at(0) == 1);
+  CHECK(l.at(1) == 2);
+  CHECK(l.at(2) == 3);
+  CHECK(l.at(3) == 7);
+}
+  Sorted_List k{1337,666,999,13,123,666,2048};
+  CHECK(k.at(0) == 13);
+  CHECK(k.at(1) == 123);
+  CHECK(k.at(2) == 666);
+  CHECK(k.at(3) == 666);
+  CHECK(k.at(4) == 999);
+  CHECK(k.at(5) == 1337);
+  CHECK(k.at(6) == 2048);
+
 }
 /*
 TEST_CASE ("INSERT")
