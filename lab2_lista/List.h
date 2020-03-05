@@ -22,15 +22,19 @@ class Sorted_List //class
   //class Element;
 public:
   Sorted_List();
-  //Sorted_List(Element* first, Element* last);
   ~Sorted_List();
   Sorted_List(std::initializer_list<int> const &list);
+  Sorted_List(Sorted_List const& rhs);
+  Sorted_List(Sorted_List && rhs);
+
 
   bool is_empty() const;
   void insert (int const& insert_data);
   int get_size()const;
   int at(int const& i) const;
   void remove(int const& pos);
+  Sorted_List& operator =(Sorted_List const& rhs);
+  Sorted_List& operator =(Sorted_List && rhs); //FLyttilldelning
 
   /*
   //kopiering

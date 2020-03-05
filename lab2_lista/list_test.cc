@@ -17,13 +17,14 @@ using namespace std;
 
 TEST_CASE ("b E k A r E constructor")
 {
-/*
+
   SECTION ("Empty")
   {
   Sorted_List l;
   CHECK(l.is_empty());
   }
-*/
+
+
   SECTION ("initialized_list")
   {
   Sorted_List initialized_list{2,5,7};
@@ -107,12 +108,69 @@ TEST_CASE ("Remove function")
 {
 
   stringstream ss;
+  stringstream sk;
   Sorted_List l {1,2,3};
-/*  ss << l;
-  CHECK(ss.str() == "1 2 3");
-*/
-  l.remove(0);
   ss << l;
-  CHECK(ss.str() == "2 3");
+  CHECK(ss.str() == "1 2 3");
 
+  l.remove(0);
+  sk << l;
+  CHECK(sk.str() == "2 3");
+
+}
+
+TEST_CASE ("= operator")
+{
+  stringstream ss;
+
+  Sorted_List l1 {1, 2, 3};
+  Sorted_List l2 {4, 5, 6};
+
+  l1 = l2;
+  ss << l1;
+  CHECK(ss.str() == "4 5 6");
+}
+
+TEST_CASE ("Tilldelning nytt objekt")
+{
+  stringstream ss;
+
+  Sorted_List l1 {1, 9, 7, 34};
+  Sorted_List l2 {l1};
+
+  ss << l2;
+  CHECK(ss.str() == "1 7 9 34");
+}
+
+TEST_CASE ("Swap tilldelning")
+{
+  Sorted_List l1 {1, 2 ,3};
+  Sorted_List l2 {4, 5, 6};
+  l1 = std::move(l2);
+
+  stringstream ss;
+  stringstream sk;
+
+  ss << l1;
+  sk << l2;
+
+  CHECK (ss.str() == "4 5 6");
+  CHECK (sk.str() == "1 2 3");
+
+  //l1 = std::move(l2);
+  //Sorted_List l1{std::move(l2)}
+}
+
+TEST_CASE ("Swap Konstruktor")
+{
+
+  Sorted_List l2 {4, 5, 6};
+  Sorted_List l1{std::move(l2)};
+
+  stringstream ss;
+
+  ss << l1;
+
+  CHECK (ss.str() == "4 5 6"); //L1
+  CHECK(l2.is_empty());  //L2
 }
