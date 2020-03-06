@@ -6,35 +6,41 @@
 #include <sstream>
 
 #include "catch.hpp"
-#include "Simulator.h"
+#include "Simulator.H"
 
 using namespace std;
 
-// här lägger ni era testfall.
-// Jobba enligt TDD;
-//  1. Lägg till testfall
-//  2. Testa
-//  3. Lägg till (minsta möjliga) implementation
-//  4. Testa alla testfall
-//  5. Refaktorera (skriv om) så att allt ser bra ut
-
+/*
+KODEXEMPEL
+Connection p, n;
+vector<Component*> net;
+net.push_back(new Battery("Bat", 24.0, p, n));
+net.push_back(newResistor("R1",  6.0, p, n));
+net.push_back(newResistor("R2",  8.0, p, n));
+simulate(net, 10000, 10, 0.1);
+*/
+/*
 TEST_CASE ("TEST_Mall")
 {
   SECTION ("SECTION_Mall")
   {
-    /*
-    KODEXEMPEL
-    Connection p, n;vector<Component*> net;
-    net.push_back(newBattery("Bat", 24.0, p, n));
-    net.push_back(newResistor("R1",  6.0, p, n));
-    net.push_back(newResistor("R2",  8.0, p, n));
-    simulate(net, 10000, 10, 0.1);
-    */
   }
 }
-
+*/
 // the following line will halt the compilation process. Move it
 // one test case at the time and then start creating your own test
 // cases
+
+TEST_CASE ("Component konstruktor")
+{
+  SECTION ("Konstruktor")
+  {
+    Connection p, n;
+
+    vector<Component*> net;
+    net.push_back(new Battery("Bat", p, n));
+
+  }
+}
 #if 0
 #endif
