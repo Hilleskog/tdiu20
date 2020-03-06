@@ -1,19 +1,32 @@
 //KOMPILERA
 //w++17 Simulator.cc test_main.o simulator_test.cc
-#include "Simulator.H"
+#include "Simulator.h"
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 // ---------------- CONSTRUCTORS ---------------- //
+
+Connection::Connection(){}
+
 Component::Component(std::string n, Connection& a, Connection& b):
 name{n}, c1{a}, c2{b}
 {}
 
 Battery::Battery(std::string name, double v, Connection& a, Connection& b):
-Component(name, c1, c2), voltage(v)
+Component(name, a, b), voltage(v)
+{}
+
+/*
+Battery::Battery(std::string name, double Voltage, Connection &Connection1, Connection &Connection2):
+Component(name, Connection1, Connection2), V{Voltage}{
+*/
+
+Resistor::Resistor(std::string name, double r, Connection &a, Connection &b):
+Component(name, a, b), resistance(r)
 {}
 
 
@@ -45,16 +58,21 @@ double Connection::get_voltage()
   return voltage;
 }
 
-// ---------------- BATTERY ---------------- //
+void Connection::set_voltage(double & input)
+{
+  voltage = input;
+}
 
-double Battery::Battery get_voltage()
+// ---------------- BATTERY ---------------- //
+/*
+double Battery::get_voltage()
 {
   return voltage;
 }
 
-double Battery::Battery get_current()
+double Battery::get_current()
 {
   return 0.0;
 }
-
+*/
 // ---------------- BATTERY ---------------- //
