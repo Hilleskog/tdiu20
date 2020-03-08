@@ -1,7 +1,7 @@
 /*
 #: protected
 -: private
-+= public
++: public
 
 Component //Består av connection
 # a: & connection
@@ -27,7 +27,6 @@ Capacitor //Är en component
 - inner_charge: double
 + get_current(): double // override
 + simulate(): void
-
 */
 -------------------------------------------------------
 class Animal

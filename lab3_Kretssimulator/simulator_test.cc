@@ -34,15 +34,21 @@ TEST_CASE ("TEST_Mall")
 
 TEST_CASE ("Component konstruktor")
 {
-  SECTION ("Konstruktor")
+  SECTION ("Battery Konstruktor")
   {
     Connection p, n;
     vector<Component*> net;
+    net.push_back(new Battery("Bat", 24, p, n));
 
-    net.push_back(new Battery{"Bat", 24, p, n});
+    CHECK(net[0]->get_voltage() == 24);
 
-    //CHECK(net.at(0).get_voltage() == 24);
   }
+  /*
+  SECTION ("Resistor konstruktor")
+  {
+
+  }
+  */
 }
 
 #if 0
