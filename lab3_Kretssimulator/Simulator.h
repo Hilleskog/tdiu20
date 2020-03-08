@@ -22,12 +22,11 @@ public:
   Component(std::string n, Connection& a, Connection& b);
   virtual ~Component() = default;
 
-  virtual double get_voltage() = 0;
-  virtual double get_current() = 0;
+  virtual double get_current() = 0; // Är pure virtual för att de alltid är olika
   virtual void simulate(double time_step) = 0;
 
+  virtual double get_voltage();
   virtual std::string get_name();
-
 private:
   std::string name;
 protected:
@@ -35,15 +34,14 @@ protected:
   Connection& n;
 };
 
-class Battery : public Component{
+class Battery : public Component
+{
 public:
   Battery(std::string name, double v, Connection  &a, Connection &b);
 
   double get_voltage() override; //Prova utan override sen :D
   double get_current() override;
   void simulate(double time_step) override;
-
-  //std::string get_name();
 private:
   double voltage;
 };
@@ -56,30 +54,24 @@ public:
   double get_current() override;
   void simulate(double time_step) override;
 
-  double get_resistance();
-
-//  void simulate(double time) override;
-
-  //std::string get_name();
 private:
   double resistance;
 };
-/*
-class Capacitor
+
+
+class Capacitor : public Component
 {
 public:
-  Capacitor::Capacitor(std::string name, double r, Connection &a, Connection &b);
+  Capacitor(std::string name, double c, Connection  &a, Connection &b);
 
   double get_current() override;
+  void simulate(double time_step) override;
 
-  double get_voltage();
-  std::string get_name();
 private:
   double capacitance;
-  double charge;
+  double charge{0};
 protected:
 };
-*/
 
 void simulate(std::vector<Component*> net, int iterations, int rows, double time_step);
 

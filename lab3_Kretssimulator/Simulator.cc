@@ -17,20 +17,17 @@ name{n}, p{a}, n{b}
 {}
 
 Battery::Battery(std::string name, double v, Connection& a, Connection& b):
-Component(name, a, b), voltage(v)
+Component(name, a, b), voltage{v}
 {}
 
 Resistor::Resistor(std::string name, double r, Connection &a, Connection &b):
-Component(name, a, b), resistance(r)
-{}
-/*
-Capacitor::Capacitor(std::string name, double cap, double charge, Connection &a, Connection &b):
-component(name, a, b), capacitance(c)
+Component(name, a, b), resistance{r}
 {}
 
-Battery::Battery(std::string name, double Voltage, Connection &Connection1, Connection &Connection2):
-Component(name, Connection1, Connection2), V{Voltage}{
-*/
+Capacitor::Capacitor(std::string name, double c, Connection  &a, Connection &b):
+Component(name, a, b), capacitance{c}, charge{0.0}
+{}
+
 
 // ---------------- CONNECTION ---------------- //
 double Connection::get_voltage()
@@ -59,7 +56,6 @@ double Component::get_voltage()
   } else {
     voltage = n.get_voltage() - p.get_voltage();
   }
-
   return voltage;
 }
 
@@ -79,10 +75,10 @@ double Battery::get_current()
   return 0.0;
 }
 
-void Battery::simulate(double time)
+void Battery::simulate(double time_step)
 {
   p.voltage = get_voltage();
-  n.voltage = 0.0;
+  n.voltage = 0.0 * time_step;
 }
 
 // ---------------- RESISTOR ---------------- //
@@ -95,26 +91,67 @@ double Resistor::get_current()
   return tmp;
 }
 
-double Resistor::get_resistance()
-  {
-    return resistance;
+void Resistor::simulate(double time_step)
+{
+  double tmp = (get_voltage()/resistance)*time_step;
+  if (p.voltage == n.voltage){
+    return;
+  } else if(p.voltage > n.voltage) {
+    p.voltage -= tmp;
+    n.voltage += tmp;
+  } else {
+    p.voltage += tmp;
+    n.voltage -= tmp;
   }
-
-void Resistor::simulate(double time_rate)
-  {
-    p.voltage = get_voltage();
-    n.voltage = 0.0;
-  }
+}
 
 // ---------------- CAPACITOR ---------------- //
+double Capacitor::get_current()
+{
+  double tmp = capacitance*(get_voltage()-charge);
+  return tmp;
+}
 
+void Capacitor::simulate(double time_step)
+{
+  double tmp = get_current()*time_step;
+  charge = charge + tmp;
+
+  if(p.voltage >= n.voltage) {
+    p.voltage -= tmp;
+    n.voltage += tmp;
+  } else {
+    p.voltage += tmp;
+    n.voltage -= tmp;
+  }
+  
+}
 
 // --------- SIMULATE AND STIMULATE --------- //
 
 void simulate(std::vector<Component*> net, int iterations, int rows, double time_step)
 {
-  for (int i = 0; i < net.size(); i++) {
-    cout << setw(14) << net[i]->get_name();
+  double net_size = net.size();
+  for (int i = 0; i < net_size; i++) {
+    cout << setw(10) << net[i]->get_name()<<"     |";
   }
   cout << endl;
+
+  for (int i = 0; i < net_size; i++) {
+    cout << setw(7) << "Volt" << setw(7) << "Curr"<<" |";
+  }
+  cout << endl;
+
+  for (int i = 0; i < rows; i++){
+    for (int i = 0; i < iterations/rows; i++) {
+    for (Component* c : net){ // Simulerar alla komponenter i nätet
+      c->simulate(time_step);
+    }
+    }
+    for (Component* c : net){ // Skriv ut värden för samtliga komponenter vid denna tidpunkt
+      cout << setw(7) << setprecision(2) << fixed << c->get_voltage()
+      << setw(7) << setprecision(2) << c->get_current() << " |";
+    }
+    cout << endl;
+  }
 }
