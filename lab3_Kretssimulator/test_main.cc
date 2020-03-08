@@ -16,48 +16,54 @@ int main(int argc, char* argv[])
 
 using namespace std;
 
-int main()
-{
-  /*
-  Connection p, n;
-  vector<Component*> net;
+int main(int argc, char *argv[]) {
+  if (argc != 5) {
+    throw invalid_argument{"Too many/few arguments"};
+  }
 
-  net.push_back(new Battery("Bat", 24.0, p, n));
-  net.push_back(new Resistor("Res", 6.0, p, n));
-  net.push_back(new Capacitor("Cap", 0.8, p, n));
+  double battery_voltage{};
+  double time_step{};
+  int iterations {};
+  int rows_to_print{};
 
-  simulate(net, 10000, 10, 0.1);
-*/
+  iterations = stoi(argv[1]);
+  rows_to_print = stoi(argv[2]);
+  time_step = stod(argv[3]);
+  battery_voltage = stod(argv[4]);
+  if (time_step <= 0 || battery_voltage <= 0 || iterations <= 0 || rows_to_print <= 0) {
+    throw out_of_range{"Input <= 0"};
+  }
+
   vector<Component*> net;
   Connection a, b, c, d;
-  net.push_back(new Battery("Bat", 24.0, a, d));
+  net.push_back(new Battery("Bat", battery_voltage, a, d));
   net.push_back(new Resistor("R1", 6.0, a, b));
   net.push_back(new Resistor("R2", 4.0, b, c));
   net.push_back(new Resistor("R3", 8.0, c, d));
   net.push_back(new Resistor("R4", 12.0, b, d));
   cout << "KRETS 1" << endl;
-  simulate(net, 200000, 10, 0.01);
+  simulate(net, iterations, rows_to_print, time_step);
 
   vector<Component*> krets2;
   Connection p2, l2, r2, n2;
-  krets2.push_back(new Battery("Bat", 24.0, p2, n2));
+  krets2.push_back(new Battery("Bat", battery_voltage, p2, n2));
   krets2.push_back(new Resistor("R1", 150.0, p2, l2));
   krets2.push_back(new Resistor("R2", 50.0, p2, r2));
   krets2.push_back(new Resistor("R3", 100.0, l2, r2));
   krets2.push_back(new Resistor("R4", 300.0, l2, n2));
   krets2.push_back(new Resistor("R5", 250.0, r2, n2));
   cout << "KRETS 2" << endl;
-  simulate(krets2, 200000, 10, 0.01);
+  simulate(krets2, iterations, rows_to_print, time_step);
 
   vector<Component*> krets3;
   Connection p, l, r, n;
-  krets3.push_back(new Battery("Bat", 24.0, p, n));
+  krets3.push_back(new Battery("Bat", battery_voltage, p, n));
   krets3.push_back(new Resistor("R1", 150.0, p, l));
   krets3.push_back(new Resistor("R2", 50.0, p, r));
   krets3.push_back(new Capacitor("C3", 1.0, l, r));
   krets3.push_back(new Resistor("R4", 300.0, l, n));
   krets3.push_back(new Capacitor("C5", 0.75, r, n));
   cout << "KRETS 3" << endl;
-  simulate(krets3, 200000, 10, 0.01);
+  simulate(krets3, iterations, rows_to_print, time_step);
 
 }
