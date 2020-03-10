@@ -49,10 +49,11 @@ TEST_CASE ("l.get_size")
 
 TEST_CASE ("l.at(i)")
 {
-   // TODO: Testa att mata in ett index som inte finns.
+   // TODO: Testa att mata in ett index som inte finns. FIXED
   Sorted_List l;
   l.insert(6);
   CHECK(l.at(0) == 6);
+  REQUIRE_THROWS_WITH(l.at(2), "Input out of range");
 }
 
 TEST_CASE ("Is sorted?")
@@ -107,7 +108,7 @@ TEST_CASE ("<< operator")
 
 TEST_CASE ("Remove function")
 {
-   // TODO: Testa att ta bort något som inte finns.
+   // TODO: Testa att ta bort nï¿½got som inte finns. FIXED
   stringstream ss;
   stringstream sk;
   Sorted_List l {1,2,3};
@@ -117,13 +118,14 @@ TEST_CASE ("Remove function")
   l.remove(0);
   sk << l;
   CHECK(sk.str() == "2 3");
+  REQUIRE_THROWS_WITH(l.remove(3), "Input out of range");
 
 }
 
 TEST_CASE ("= operator")
 {
   stringstream ss;
-  // TODO: Testa att inte listorna är samman kopplade efter kopia.
+  // TODO: Testa att inte listorna ï¿½r samman kopplade efter kopia.
   Sorted_List l1 {1, 2, 3};
   Sorted_List l2 {4, 5, 6};
 

@@ -45,8 +45,8 @@ nextptr{next}, prevptr{prev}, data{new_data}
 Sorted_List::Sorted_List(Sorted_List const& rhs):
 Sorted_List()
 {
-   // TODO: Detta är en mycket ineffektiv lösning, eftersom vi vet att
-   // listan är sorterad innan kopiering. Tänk igenom hur många gånger
+   // TODO: Detta ï¿½r en mycket ineffektiv lï¿½sning, eftersom vi vet att
+   // listan ï¿½r sorterad innan kopiering. Tï¿½nk igenom hur mï¿½nga gï¿½nger
    // ni kommer att loopa igenom listorna.
   for (int i{0}; i < rhs.get_size(); i++ ){
     insert(rhs.at(i));
@@ -120,38 +120,41 @@ int Sorted_List::at(int const& position )const
     }
     return tmp->data;
   }else{
-    throw std::logic_error("StÃ¶rre Ã¤n listan");
+    throw std::logic_error("Input out of range");
 
   }
 }
 
 void Sorted_List::remove(int const& pos)
 {
-  Element* tmp = firstptr;
+  if (pos < get_size() && pos >= 0)
+  {
+    Element* tmp = firstptr;
+    for (int i = pos; i > 0; i--){
+      tmp = tmp->nextptr;
+    }
 
-  for (int i = pos; i > 0; i--){
-    tmp = tmp->nextptr;
-  }
+    if (tmp->prevptr == nullptr && tmp->nextptr == nullptr){
+      delete tmp;
+      firstptr = nullptr;
+      lastptr = nullptr;
 
-  if (tmp->prevptr == nullptr && tmp->nextptr == nullptr){
-    delete tmp;
-    firstptr = nullptr;
-    lastptr = nullptr;
-
-  } else if (tmp->nextptr == nullptr){
-    lastptr = tmp->prevptr;
-    lastptr->nextptr = nullptr;
-    delete tmp;
-  } else if (tmp->prevptr == nullptr) {
-    firstptr = tmp->nextptr;
-    firstptr->prevptr = nullptr;
-    delete tmp;
+    } else if (tmp->nextptr == nullptr){
+      lastptr = tmp->prevptr;
+      lastptr->nextptr = nullptr;
+      delete tmp;
+    } else if (tmp->prevptr == nullptr) {
+      firstptr = tmp->nextptr;
+      firstptr->prevptr = nullptr;
+      delete tmp;
+    } else {
+      tmp->prevptr->nextptr = tmp->nextptr;
+      delete tmp;
+    }
+    list_size--;
   } else {
-    tmp->prevptr->nextptr = tmp->nextptr;
-    delete tmp;
+    throw std::logic_error("Input out of range");
   }
-  list_size--;
-
 }
 
 ostream& operator << (ostream & os, Sorted_List const& rhs)
@@ -176,9 +179,9 @@ ostream& operator << (ostream & os, Sorted_List const& rhs)
   {
     remove(0);
   }
-  
+
   //cout << "Sup boi" << endl;
-  
+
   // TODO: Samma som i kopieringskonstruktorn. Samt kodupprepning.
   for (int i{0}; i < rhs.get_size(); i++ ){
     insert(rhs.at(i));
@@ -191,7 +194,7 @@ ostream& operator << (ostream & os, Sorted_List const& rhs)
 
 Sorted_List& Sorted_List::operator =(Sorted_List && rhs) //FLyttilldelning
 {
-   // Kommentar: Ni hade kunnat använda std::swap() 
+   // Kommentar: Ni hade kunnat anvï¿½nda std::swap()
   Element* tmp_first = firstptr;
   Element* tmp_last = lastptr;
 
