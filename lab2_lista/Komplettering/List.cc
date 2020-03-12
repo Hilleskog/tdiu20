@@ -47,9 +47,10 @@ Sorted_List()
 {
    // TODO: Detta �r en mycket ineffektiv l�sning, eftersom vi vet att
    // listan �r sorterad innan kopiering. T�nk igenom hur m�nga g�nger
-   // ni kommer att loopa igenom listorna.
-  for (int i{0}; i < rhs.get_size(); i++ ){
-    insert(rhs.at(i));
+   // ni kommer att loopa igenom listorna. DONE
+
+    for (int i = rhs.get_size()-1; i >= 0; i-- ){
+      insert(rhs.at(i));
   }
 }
 
@@ -182,10 +183,10 @@ ostream& operator << (ostream & os, Sorted_List const& rhs)
 
   //cout << "Sup boi" << endl;
 
-  // TODO: Samma som i kopieringskonstruktorn. Samt kodupprepning.
-  for (int i{0}; i < rhs.get_size(); i++ ){
+  // TODO: Samma som i kopieringskonstruktorn. Samt kodupprepning. DONE
+  for (int i = rhs.get_size()-1; i >= 0; i-- ){
     insert(rhs.at(i));
-  }
+}
 
   list_size = rhs.get_size();
 

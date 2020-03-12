@@ -25,8 +25,8 @@ public:
   virtual double get_current() = 0; // Är pure virtual för att de alltid är olika
   virtual void simulate(double time_step) = 0;
 
-  virtual double get_voltage();
-  virtual std::string get_name();
+  double get_voltage();
+  std::string get_name();
 private:
   std::string name;
 protected:
@@ -39,7 +39,7 @@ class Battery : public Component
 public:
   Battery(std::string name, double v, Connection  &a, Connection &b);
 
-  double get_voltage() override; //Prova utan override sen :D
+  double get_voltage(); //Prova utan override sen :D
   double get_current() override;
   void simulate(double time_step) override;
 private:

@@ -70,6 +70,7 @@ double Battery::get_voltage()
   return voltage;
 }
 
+
 double Battery::get_current()
 {
   return 0.0;
@@ -124,7 +125,7 @@ void Capacitor::simulate(double time_step)
     p.voltage += tmp;
     n.voltage -= tmp;
   }
-  
+
 }
 
 // --------- SIMULATE AND STIMULATE --------- //
@@ -153,5 +154,8 @@ void simulate(std::vector<Component*> net, int iterations, int rows, double time
       << setw(7) << setprecision(2) << c->get_current() << " |";
     }
     cout << endl;
+  }
+  for (int i=0; i<net.size(); i++) {
+    delete net[i];
   }
 }

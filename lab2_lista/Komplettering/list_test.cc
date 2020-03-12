@@ -125,24 +125,34 @@ TEST_CASE ("Remove function")
 TEST_CASE ("= operator")
 {
   stringstream ss;
-  // TODO: Testa att inte listorna �r samman kopplade efter kopia.
+  // TODO: Testa att inte listorna �r samman kopplade efter kopia. DONE
   Sorted_List l1 {1, 2, 3};
   Sorted_List l2 {4, 5, 6};
 
   l1 = l2;
   ss << l1;
   CHECK(ss.str() == "4 5 6");
+
+  stringstream ks;
+  l2.remove(0);
+  ks << l1;
+  CHECK(ks.str() == "4 5 6");
 }
 
 TEST_CASE ("Tilldelning nytt objekt")
 {
   stringstream ss;
-  // TODO: Samma som ovan.
+  // TODO: Samma som ovan. DONE
   Sorted_List l1 {1, 9, 7, 34};
   Sorted_List l2 {l1};
 
   ss << l2;
   CHECK(ss.str() == "1 7 9 34");
+
+  stringstream ks;
+  l2.remove(0);
+  ks << l1;
+  CHECK(ks.str() == "1 7 9 34");
 }
 
 TEST_CASE ("Swap tilldelning")
