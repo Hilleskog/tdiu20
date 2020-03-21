@@ -14,22 +14,22 @@ class Connection //class
 public:
   Connection();
 
-  double get_voltage();
-  void set_voltage(double & input);
+  double get_voltage() const;
+  void set_voltage(double const& input);
   double voltage{};
 };
 
 class Component
 {
 public:
-  Component(std::string n, Connection& a, Connection& b);
+  Component(std::string const& n, Connection& a, Connection& b);
   virtual ~Component() = default;
 
-  virtual double get_current() = 0; // Är pure virtual för att de alltid är olika
-  virtual void simulate(double time_step) = 0;
+  virtual double get_current() const = 0; // Är pure virtual för att de alltid är olika
+  virtual void simulate(double const time_step) = 0;
 
-  double get_voltage();
-  std::string get_name();
+  double get_voltage() const;
+  std::string get_name() const;
 private:
   std::string name;
 protected:
@@ -40,11 +40,11 @@ protected:
 class Battery : public Component
 {
 public:
-  Battery(std::string name, double v, Connection  &a, Connection &b);
+  Battery(std::string const name, double const v, Connection & a, Connection & b);
 
-  double get_voltage(); //Prova utan override sen :D
-  double get_current() override;
-  void simulate(double time_step) override;
+  double get_voltage() const; //Prova utan override sen :D
+  double get_current() const override;
+  void simulate(double const time_step) override;
 private:
   double voltage;
 };
@@ -52,10 +52,10 @@ private:
 class Resistor : public Component
 {
 public:
-  Resistor(std::string name, double r, Connection &a, Connection &b);
+  Resistor(std::string const name, double const r, Connection &a, Connection &b);
 
-  double get_current() override;
-  void simulate(double time_step) override;
+  double get_current() const override;
+  void simulate(double const time_step) override;
 
 private:
   double resistance;
@@ -65,10 +65,10 @@ private:
 class Capacitor : public Component
 {
 public:
-  Capacitor(std::string name, double c, Connection  &a, Connection &b);
+  Capacitor(std::string const name, double const c, Connection  &a, Connection &b);
 
-  double get_current() override;
-  void simulate(double time_step) override;
+  double get_current() const override;
+  void simulate(double const time_step) override;
 
 private:
   double capacitance;
@@ -76,7 +76,7 @@ private:
 protected:
 };
 
-void simulate(std::vector<Component*> net, int iterations, int rows, double time_step);
+void simulate(std::vector<Component*> net, int const iterations, int const rows, double const time_step);
 
 
 #endif

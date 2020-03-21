@@ -12,41 +12,41 @@ using namespace std;
 
 Connection::Connection(){}
 
-Component::Component(std::string n, Connection& a, Connection& b):
+Component::Component(std::string const& n, Connection & a, Connection & b):
 name{n}, p{a}, n{b}
 {}
 
-Battery::Battery(std::string name, double v, Connection& a, Connection& b):
+Battery::Battery(std::string const name, double const v, Connection & a, Connection & b):
 Component(name, a, b), voltage{v}
 {}
 
-Resistor::Resistor(std::string name, double r, Connection &a, Connection &b):
+Resistor::Resistor(std::string const name, double const r, Connection &a, Connection &b):
 Component(name, a, b), resistance{r}
 {}
 
-Capacitor::Capacitor(std::string name, double c, Connection  &a, Connection &b):
+Capacitor::Capacitor(std::string const name, double const c, Connection  &a, Connection &b):
 Component(name, a, b), capacitance{c}, charge{0.0}
 {}
 
 
 // ---------------- CONNECTION ---------------- //
-double Connection::get_voltage()
+double Connection::get_voltage() const
 {
   return voltage;
 }
 
-void Connection::set_voltage(double & input)
+void Connection::set_voltage(double const& input)
 {
   voltage = input;
 }
 
 // ---------------- COMPONENT ---------------- //
-string Component::get_name()
+string Component::get_name() const
 {
   return name;
 }
 
-double Component::get_voltage()
+double Component::get_voltage() const
 {
   double voltage{};
 
@@ -59,24 +59,23 @@ double Component::get_voltage()
   return voltage;
 }
 
-double Component::get_current()
+double Component::get_current() const
 {
   return 0.0; // Ja men precis
 }
 
 // ---------------- BATTERY ---------------- //
-double Battery::get_voltage()
+double Battery::get_voltage() const
 {
   return voltage;
 }
 
-
-double Battery::get_current()
+double Battery::get_current() const
 {
   return 0.0;
 }
 
-void Battery::simulate(double time_step)
+void Battery::simulate(double const time_step)
 {
   p.voltage = get_voltage();
   n.voltage = 0.0 * time_step;
@@ -84,7 +83,7 @@ void Battery::simulate(double time_step)
 
 // ---------------- RESISTOR ---------------- //
 
-double Resistor::get_current()
+double Resistor::get_current() const
 {
   double tmp{};
 
@@ -92,7 +91,7 @@ double Resistor::get_current()
   return tmp;
 }
 
-void Resistor::simulate(double time_step)
+void Resistor::simulate(double const time_step)
 {
   double tmp = (get_voltage()/resistance)*time_step;
   if (p.voltage == n.voltage){
@@ -107,13 +106,13 @@ void Resistor::simulate(double time_step)
 }
 
 // ---------------- CAPACITOR ---------------- //
-double Capacitor::get_current()
+double Capacitor::get_current() const
 {
   double tmp = capacitance*(get_voltage()-charge);
   return tmp;
 }
 
-void Capacitor::simulate(double time_step)
+void Capacitor::simulate(double const time_step)
 {
   double tmp = get_current()*time_step;
   charge = charge + tmp;
@@ -130,7 +129,7 @@ void Capacitor::simulate(double time_step)
 
 // --------- SIMULATE AND STIMULATE --------- //
 
-void simulate(std::vector<Component*> net, int iterations, int rows, double time_step)
+void simulate(std::vector<Component*> net, int const iterations, int const rows, double const time_step)
 {
   double net_size = net.size();
   for (int i = 0; i < net_size; i++) {
