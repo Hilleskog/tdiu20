@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include "spaceship.h"
 #include <string>
 #include <vector>
